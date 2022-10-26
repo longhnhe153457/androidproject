@@ -25,10 +25,15 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PasswordActivity" />
+        <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".WeatherActity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

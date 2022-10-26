@@ -16,11 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class adapterchuyenmuc extends BaseAdapter {
-    public adapterchuyenmuc(Context context, int layout, List<chuyenmuc> chuyenmucList) {
-        this.context = context;
-        this.layout = layout;
-        this.chuyenmucList = chuyenmucList;
-    }
+
 
     private Context context;
     private  int layout;
@@ -39,7 +35,11 @@ public class adapterchuyenmuc extends BaseAdapter {
     public long getItemId(int i) {
         return 0;
     }
-
+    public adapterchuyenmuc(Context context, int layout, List<chuyenmuc> chuyenmucList) {
+        this.context = context;
+        this.layout = layout;
+        this.chuyenmucList = chuyenmucList;
+    }
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater)  context.getSystemService(context.LAYOUT_INFLATER_SERVICE);

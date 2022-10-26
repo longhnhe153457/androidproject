@@ -2,15 +2,19 @@ package com.example.projectnews;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBNAME = "Appdocbao.db";
     public DBHelper(Context context) {
-        super(context, "Sign.db", null, 1);
+        super(context, "Signinb.db", null, 1);
     }
 
     private static String TABLE_BAO = "bao";
@@ -28,7 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
        // MyDB.execSQL(SQLQuery1);
-        MyDB.execSQL("create Table user(username TEXT primary key, password TEXT, email TEXT, status text, role text)");
+        MyDB.execSQL("create Table user(username TEXT primary key, password TEXT, email TEXT, status text, role text,avatar blob,showname text)");
        MyDB.execSQL("create Table bao(idbao integer primary key AUTOINCREMENT, tieude TEXT UNIQUE, noidung TEXT,  anh text)");
             MyDB.execSQL(SQLQuery2);
 
@@ -43,7 +47,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-    private String SQLQuery2 = "INSERT INTO user VAlUES ('admin','admin','admin@gmail.com',0,1)";
+    private String SQLQuery2 = "INSERT INTO user VAlUES ('admin','admin','admin@gmail.com',0,1,'','admin')";
     @Override
     public void onUpgrade(SQLiteDatabase MyDB, int i, int i1) {
         MyDB.execSQL("drop Table if exists user");
@@ -61,6 +65,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("status", 0);
        contentValues.put("role", 0);
+        contentValues.put("avatar", "");
+        contentValues.put("showname", "");
         long result = MyDB.insert("user", null, contentValues);
         if(result==-1) return false;
         else
@@ -70,9 +76,20 @@ public class DBHelper extends SQLiteOpenHelper {
     public Boolean updatepass(String username, String password){
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues= new ContentValues();
-
         contentValues.put("password", password);
 
+        long result = MyDB.update("user",  contentValues, "username = ?",new String[]{username});
+        if(result==-1) return false;
+        else
+            return true;
+    }
+
+    public Boolean updateprofile(String username,String showname,  byte [] avatar){
+        SQLiteDatabase MyDB = this.getWritableDatabase();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("showname", showname);
+ //       contentValues.put("email", email);
+        contentValues.put("avatar", avatar);
         long result = MyDB.update("user",  contentValues, "username = ?",new String[]{username});
         if(result==-1) return false;
         else
@@ -101,6 +118,20 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getReadableDatabase();
         Cursor res=MyDB.rawQuery("SELECT * FROM "+TABLE_BAO,null);
         return res;
+
+    }
+    public Cursor getDatausername() {
+    String a = "admin";
+        SQLiteDatabase MyDB = this.getReadableDatabase();
+        String sql="select * from user where username =?";
+        Cursor cursor=MyDB.rawQuery(sql, new String[] { a });
+        if (cursor != null)
+        {   cursor.moveToFirst();}
+        return cursor;
+//        String ten = cursor.getString(0);
+//        String sdt = cursor.getString(6);
+//        byte[] anh = cursor.getBlob(5);
+
 
     }
 

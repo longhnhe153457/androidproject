@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_update"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+>
+
+
+    <ImageView
+        android:id="@+id/imgHinhDaiDien"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="4dp"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <Button
+        android:text="Chụp hình"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/btnChupHinh" />
+
+    <Button
+        android:text="Chọn Hình"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnChonHinh"
+        android:layout_below="@+id/btnChupHinh"
+        android:layout_alignLeft="@+id/btnChupHinh"
+        android:layout_alignStart="@+id/btnChupHinh" />
+
+<!--    <EditText-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:text="Name"-->
+<!--        android:ems="10"-->
+<!--        android:layout_below="@+id/imgHinhDaiDien"-->
+<!--        android:layout_alignParentLeft="true"-->
+<!--        android:layout_alignParentStart="true"-->
+<!--        android:id="@+id/edtTen"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:layout_alignParentEnd="true" />-->
+
+    <!--    <EditText-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:text="Name"-->
+    <!--        android:ems="10"-->
+    <!--        android:layout_below="@+id/imgHinhDaiDien"-->
+    <!--        android:layout_alignParentLeft="true"-->
+    <!--        android:layout_alignParentStart="true"-->
+    <!--        android:id="@+id/edtTen"-->
+    <!--        android:layout_alignParentRight="true"-->
+    <!--        android:layout_alignParentEnd="true" />-->
+
+    <EditText
+        android:id="@+id/edtSdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnChonHinh"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Show name" />
+
+    <Button
+        android:text="Lưu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtSdt"
+        android:layout_alignRight="@+id/imgHinhDaiDien"
+        android:layout_alignEnd="@+id/imgHinhDaiDien"
+        android:id="@+id/btnLuu" />
+
+    <Button
+        android:text="Hủy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnHuy"
+        android:layout_below="@+id/edtSdt"
+        android:layout_alignLeft="@+id/btnChonHinh"
+        android:layout_alignStart="@+id/btnChonHinh" />
+</RelativeLayout>

@@ -21,7 +21,7 @@
         android:textColor="@color/teal_700"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
-
+        android:text="Online"
         android:id="@+id/TEXT_NAME"
         ></TextView>
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:id="@+id/Text_gmail"
-
+        android:text="Online"
    android:textStyle="bold"
         android:textColor="#F44336"></TextView>
 

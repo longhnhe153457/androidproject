@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     ViewFlipper viewFlipper;
     NavigationView navigationView;
+    TextView username1;
     ListView listView,listViewNew,listViewThongTin;
     DrawerLayout drawerLayout;
 
@@ -55,40 +56,18 @@ public class MainActivity extends AppCompatActivity {
     String email;
     String username;
 
-//public  void  viewData(){
-//    Cursor cursor= DBHelper.viewData();
-//    if(cursor.getCount()==0){
-//        Toast.makeText(this,"No data to show",Toast.LENGTH_SHORT).show();
-//
-//    }
-//    else{
-//        while (cursor.moveToNext()){
-//
-//            listnew.add(cursor.getString(3));
-//
-//            listnew.add(cursor.getString(1));
-//        }
-//        adapterNew = new ArrayAdapter(this, android.R.layout.simple_list_item_1,listnew);
-//        listViewNew.setAdapter(adapterNew);
-//    }
-//
-//}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DBHelper = new DBHelper(this);
-
-
-
         Intent intent = getIntent();
-
-
         AnhXa();
         ActionBar();
         ActionViewFlipper();
+       String username1 = intent.getStringExtra("username");
       //  viewData();
-      //  textName.setText(intent.getStringExtra("username"));
+       // username1.setText(intent.getStringExtra("username"));
         listViewNew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -107,10 +86,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if( i ==0 ){
+                    Intent intent = new Intent(MainActivity.this,UpdateProfileActivity.class);
+                    intent.putExtra("username",username1);
+                    startActivity(intent);
+                }
+                else if( i == 1){
+                    Intent intent  = new Intent(MainActivity.this, WeatherActity.class);
+                    startActivity(intent);
 
                 }
-                else if( i==1){
-                    finish();
+              else if(i==2){
+                  finish();
                 }
 
             }
@@ -148,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         listViewThongTin=findViewById(R.id.listviewthongtin);
         navigationView=findViewById(R.id.navigationview);
         drawerLayout=findViewById(R.id.drawerlayout);
+
+
         textName= findViewById(R.id.TEXT_NAME);
         newArrayList= new ArrayList<>();
 
@@ -174,10 +162,12 @@ public class MainActivity extends AppCompatActivity {
         adapterthongtin = new adapterthongtin(this, R.layout.navigation_thongtin,taiKhoanArrayList);
         listViewThongTin.setAdapter(adapterthongtin);
 
+
         chuyenmucArrayList =new ArrayList<>();
         chuyenmucArrayList.add(new chuyenmuc("Thông tin",R.drawable.ic_baseline_face_24));
-        chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
 
+        chuyenmucArrayList.add(new chuyenmuc("Thời tiết",R.drawable.ic_baseline_cloud_24));
+        chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
         adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
 
         listView.setAdapter(adapterchuyenmuc);

@@ -8,6 +8,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -62,10 +64,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DBHelper = new DBHelper(this);
         Intent intent = getIntent();
+        String username1 = intent.getStringExtra("username");
         AnhXa();
         ActionBar();
         ActionViewFlipper();
-       String username1 = intent.getStringExtra("username");
+
       //  viewData();
        // username1.setText(intent.getStringExtra("username"));
         listViewNew.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this,UpdateProfileActivity.class);
                     intent.putExtra("username",username1);
                     startActivity(intent);
+                    finish();
                 }
                 else if( i == 1){
                     Intent intent  = new Intent(MainActivity.this, WeatherActity.class);
@@ -139,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         textName= findViewById(R.id.TEXT_NAME);
         newArrayList= new ArrayList<>();
 
+        // username1.setText(intent.getStringExtra("username"));
         Cursor cursor = DBHelper.getData();
 
         while (cursor.moveToNext()){
@@ -156,12 +161,31 @@ public class MainActivity extends AppCompatActivity {
         cursor.moveToFirst();
         cursor.close();
 
-        taiKhoanArrayList = new  ArrayList<>();
-        taiKhoanArrayList.add(new TaiKhoan(username,email));
 
-        adapterthongtin = new adapterthongtin(this, R.layout.navigation_thongtin,taiKhoanArrayList);
-        listViewThongTin.setAdapter(adapterthongtin);
 
+
+        //navigation
+        Intent intent = getIntent();
+        String username1 = intent.getStringExtra("username");
+        if(username1 == null){
+            username1 = "Newbie";
+        }
+        if(username1!=null) {
+            Cursor cursor1 = DBHelper.getDatausername(username1);
+// String ten = cursor.getString(0);
+            String sdt = cursor1.getString(6);
+            taiKhoanArrayList = new  ArrayList<>();
+
+            taiKhoanArrayList.add(new TaiKhoan(username1,sdt));
+
+            adapterthongtin = new adapterthongtin(this, R.layout.navigation_thongtin,taiKhoanArrayList);
+            listViewThongTin.setAdapter(adapterthongtin);
+        }
+
+
+
+
+        //Navigation 2
 
         chuyenmucArrayList =new ArrayList<>();
         chuyenmucArrayList.add(new chuyenmuc("Thông tin",R.drawable.ic_baseline_face_24));

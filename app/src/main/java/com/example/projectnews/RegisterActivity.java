@@ -51,6 +51,7 @@ public class RegisterActivity  extends AppCompatActivity {
                             if(insert==true){
                                 Toast.makeText(RegisterActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                                intent.putExtra("username",user);
                                 startActivity(intent);
                             }else{
                                 Toast.makeText(RegisterActivity.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();

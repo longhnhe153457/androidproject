@@ -49,26 +49,30 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         addControls();
         addEvents();
+        if(username!=null) {
+            Cursor cursor = DBHelper.getDatausername(username);
+// String ten = cursor.getString(0);
+            String sdt = cursor.getString(6);
+            byte[] anh = cursor.getBlob(5);
 
-       Cursor cursor = DBHelper.getDatausername();
+            Bitmap bitmap = BitmapFactory.decodeByteArray(anh, 0, anh.length);
 
-       // String ten = cursor.getString(0);
-        String sdt = cursor.getString(6);
-        byte[] anh = cursor.getBlob(5);
+            Bitmap icon = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.anou);
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(anh, 0, anh.length);
-
-        Bitmap icon = BitmapFactory.decodeResource(getResources(),
-                R.drawable.anou);
-
-        if(bitmap == null){
-            imgHinhDaiDien.setImageBitmap(icon);
-       }
-        else {
-            imgHinhDaiDien.setImageBitmap(bitmap);
+            if(bitmap == null){
+                imgHinhDaiDien.setImageBitmap(icon);
+            }
+            else {
+                imgHinhDaiDien.setImageBitmap(bitmap);
+            }
+            edtGamil.setText(sdt);
         }
-        edtGamil.setText(sdt);
-       // edtTen.setText(ten);
+        else{
+            Toast.makeText(UpdateProfileActivity.this, "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
+        }
+
+      //  edtTen.setText(ten);
 
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,9 +83,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 Boolean checkuser = DBHelper.updateprofile(username, tendung,anh);
                 if (checkuser == true ) {
                     Intent intent = new Intent(UpdateProfileActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("username",username);
                     Toast.makeText(UpdateProfileActivity.this, "Update thông tin thành công", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                     finish();
+
                 }
                 else{
                     Toast.makeText(UpdateProfileActivity.this, "Xảy ra lỗi", Toast.LENGTH_SHORT).show();
@@ -161,8 +167,10 @@ public class UpdateProfileActivity extends AppCompatActivity {
     }
 
     private void cancel(){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(UpdateProfileActivity.this, MainActivity.class);
+        intent.putExtra("username",username);
         startActivity(intent);
+        finish();
     }
 
     private  void addControls(){

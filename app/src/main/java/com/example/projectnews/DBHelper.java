@@ -22,10 +22,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static String TEN_BAO = "tieude";
     private static String NOI_DUNG = "noidung";
     private static String IMAGE = "anh";
-//    private String SQLQuery1 = "CREATE TABLE "+ TABLE_TRUYEN +" ( "+ID_TRUYEN+" integer primary key AUTOINCREMENT, "
-//            +TEN_TRUYEN+" TEXT UNIQUE, "
-//            +NOI_DUNG+" TEXT, "
-//            +IMAGE+" TEXT  )";
 
 
 
@@ -120,8 +116,8 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
 
     }
-    public Cursor getDatausername() {
-    String a = "admin";
+    public Cursor getDatausername(String a) {
+
         SQLiteDatabase MyDB = this.getReadableDatabase();
         String sql="select * from user where username =?";
         Cursor cursor=MyDB.rawQuery(sql, new String[] { a });

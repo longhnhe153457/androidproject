@@ -43,15 +43,17 @@
                     android:textStyle="bold"
                     ></TextView>
 
+
                 <ListView
                     android:id="@+id/listviewnews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="50sp"
                     android:layout_marginTop="10dp"
-                    >
+                    android:textSize="50sp">
+
 
                 </ListView>
+
             </LinearLayout>
 
 

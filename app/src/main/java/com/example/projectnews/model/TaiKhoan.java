@@ -6,6 +6,7 @@ public class TaiKhoan {
     private String email;
     private String status;
     private String role;
+    private byte [] img;
 
     public TaiKhoan(String username, String password, String email, String status, String role) {
         this.username = username;
@@ -15,9 +16,22 @@ public class TaiKhoan {
         this.role = role;
     }
 
+    public TaiKhoan(String username, String email,byte [] img) {
+        this.username = username;
+        this.email = email;
+        this.img=img;
+    }
     public TaiKhoan(String username, String email) {
         this.username = username;
         this.email = email;
+
+    }
+    public byte[] getImg() {
+        return img;
+    }
+
+    public void setImg(byte[] img) {
+        this.img = img;
     }
 
     public String getUsername() {

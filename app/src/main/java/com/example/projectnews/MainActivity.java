@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent1=new Intent(MainActivity.this,MainNoiDung.class);
                 startActivity(intent1);
-                String tent =newArrayList.get(i).getTenBao();
-                String noidungt = newArrayList.get(i).getNoiDung();
+                String tent =newArrayList.get(i).getTitle();
+                String noidungt = newArrayList.get(i).getContent();
                 intent1.putExtra("tentruyen",tent);
                 intent1.putExtra("noidung",noidungt);
                 startActivity(intent1);
@@ -141,25 +141,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         textName= findViewById(R.id.TEXT_NAME);
-        newArrayList= new ArrayList<>();
+        newArrayList= DBHelper.getAllNews();
+        adapterNew= new adapterNew( getApplicationContext() , newArrayList);
+        listViewNew.setAdapter(adapterNew);
 
-        // username1.setText(intent.getStringExtra("username"));
-        Cursor cursor = DBHelper.getData();
-
-        while (cursor.moveToNext()){
-            int id =cursor.getInt(0);
-            String tenbao=cursor.getString(1);
-            String noidung = cursor.getString(2);
-            String anh =cursor.getString(3);
-
-            newArrayList.add(new New(id,tenbao,noidung,anh));
-
-            adapterNew= new adapterNew( getApplicationContext() , newArrayList);
-
-            listViewNew.setAdapter(adapterNew);
-        }
-        cursor.moveToFirst();
-        cursor.close();
+//        Cursor cursor = DBHelper.getData();
+//
+//        while (cursor.moveToNext()){
+//            int id =cursor.getInt(0);
+//            String tenbao=cursor.getString(1);
+//            String noidung = cursor.getString(2);
+//            String anh =cursor.getString(3);
+//
+//            newArrayList.add(new New(id,tenbao,noidung,anh));
+//
+//            adapterNew= new adapterNew( getApplicationContext() , newArrayList);
+//
+//            listViewNew.setAdapter(adapterNew);
+//        }
+//        cursor.moveToFirst();
+//        cursor.close();
 
 
 

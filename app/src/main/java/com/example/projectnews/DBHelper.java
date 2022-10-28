@@ -8,13 +8,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBNAME = "Appdocbao.db";
+    Context context;
     public DBHelper(Context context) {
         super(context, "Signinb.db", null, 1);
+        this.context = context;
     }
 
     private static String TABLE_BAO = "bao";
@@ -23,6 +26,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static String NOI_DUNG = "noidung";
     private static String IMAGE = "anh";
 
+    private static final String tableName = "mynotes";
+    private static final String columnId = "id";
+    private static final String columnTitle = "title";
+    private static final String columnDescription = "description";
+
 
 
     @Override
@@ -30,13 +38,24 @@ public class DBHelper extends SQLiteOpenHelper {
        // MyDB.execSQL(SQLQuery1);
         MyDB.execSQL("create Table user(username TEXT primary key, password TEXT, email TEXT, status text, role text,avatar blob,showname text)");
        MyDB.execSQL("create Table bao(idbao integer primary key AUTOINCREMENT, tieude TEXT UNIQUE, noidung TEXT,  anh text)");
-            MyDB.execSQL(SQLQuery2);
 
-            MyDB.execSQL(SQLQuery4);
+
+        String query = "CREATE TABLE "+tableName+
+                " ("+columnId+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                columnTitle+ " TEXT, "+
+                columnDescription +" Text);";
+
+        MyDB.execSQL(SQLQuery2);
+
+        MyDB.execSQL(SQLQuery4);
         MyDB.execSQL(SQLQuery5);
         MyDB.execSQL(SQLQuery6);
         MyDB.execSQL(SQLQuery7);
         MyDB.execSQL(SQLQuery8);
+
+        // table note
+
+        MyDB.execSQL(query);
 
 
     }
@@ -48,6 +67,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase MyDB, int i, int i1) {
         MyDB.execSQL("drop Table if exists user");
         MyDB.execSQL("drop Table if exists truyen");
+        MyDB.execSQL("DROP TABLE IF EXISTS "+ tableName);
         onCreate(MyDB);
     }
 
@@ -136,6 +156,70 @@ public class DBHelper extends SQLiteOpenHelper {
     private String SQLQuery6 = "INSERT INTO bao VALUES (null,'Minh hoa','','https://toplist.vn/images/800px/de-den-va-de-trang-230182.jpg')";
     private String SQLQuery7 = "INSERT INTO bao VALUES (null,'Anh hoat hinh','','https://toplist.vn/images/800px/chu-be-chan-cuu-230183.jpg')";
     private String SQLQuery8 = "INSERT INTO bao VALUES (null,'Anh nen','','https://toplist.vn/images/800px/cau-be-chan-cuu-va-cay-da-co-thu-230184.jpg')";
+
+    //Notes
+
+
+    public void  addNotes(String title, String desc){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(columnTitle,title);
+        cv.put(columnDescription,desc);
+
+        long resultValue = db.insert(tableName,null,cv);
+
+        if (resultValue == -1){
+            Toast.makeText(context, "Dữ liệu không được add ", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Thêm thành công", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    Cursor readNotes(){
+        String query = "SELECT * FROM "+  tableName;
+        SQLiteDatabase database= this.getReadableDatabase();
+
+        Cursor cursor= null;
+        if (database!= null){
+            cursor = database.rawQuery(query,null);
+        }
+        return  cursor;
+    }
+
+    void deleteAllNotes(){
+        SQLiteDatabase database = this.getWritableDatabase();
+        String query = "DELETE FROM "+ tableName;
+        database.execSQL(query);
+
+    }
+
+    void updateNotes(String title,String desc , String id){
+        SQLiteDatabase database =  this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(columnTitle,title);
+        contentValues.put(columnDescription,desc);
+
+        long resut  = database.update(tableName,contentValues,"id=?",new String[]{id});
+        if (resut == -1){
+            Toast.makeText(context, "Thất bại", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Hoàn thành!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public  void  deleteSingleItem(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(tableName,"id=?", new String[]{id});
+        if (result == -1){
+            Toast.makeText(context, "Dữ liệu chưa được xóa", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Xóa dữ liệu thành công", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
 }

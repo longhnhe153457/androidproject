@@ -33,7 +33,10 @@
         <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".AddNotesActivity" />
+        <activity android:name=".UpdateActivityNote" />
         <activity android:name=".WeatherActity" />
+        <activity android:name=".MainActivityNote" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

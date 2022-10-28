@@ -37,21 +37,21 @@ public class UpdateProfileActivity extends AppCompatActivity {
     ImageView imgHinhDaiDien;
     DBHelper DBHelper;
     String username;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         DBHelper = new DBHelper(this);
 
-
         Intent intent = getIntent();
         username=(intent.getStringExtra("username"));
-
         addControls();
         addEvents();
         if(username!=null) {
             Cursor cursor = DBHelper.getDatausername(username);
-// String ten = cursor.getString(0);
             String sdt = cursor.getString(6);
             byte[] anh = cursor.getBlob(5);
 
@@ -71,8 +71,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         else{
             Toast.makeText(UpdateProfileActivity.this, "Có lỗi xảy ra", Toast.LENGTH_SHORT).show();
         }
-
-      //  edtTen.setText(ten);
 
         btnLuu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +93,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 
 
     private void addEvents(){
@@ -121,6 +122,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         });
     }
 
+
     private void takePicture(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, RESQUEST_TAKE_PHOTO);
@@ -131,6 +133,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_CHOOSE_PHOTO);
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -152,9 +156,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         }
     }
 
-    private void update(){
 
-    }
 
     private byte[] getByteArrayFromImageView(ImageView imgv){
         BitmapDrawable drawable = (BitmapDrawable) imgv.getDrawable();
@@ -173,6 +175,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         finish();
     }
 
+
+
     private  void addControls(){
         btnChonHinh = (Button) findViewById(R.id.btnChonHinh);
         btnChupHinh = (Button) findViewById(R.id.btnChupHinh);
@@ -183,7 +187,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         edtGamil = (EditText) findViewById(R.id.edtSdt);
         imgHinhDaiDien = (ImageView) findViewById(R.id.imgHinhDaiDien);
     }
-
 
 
 

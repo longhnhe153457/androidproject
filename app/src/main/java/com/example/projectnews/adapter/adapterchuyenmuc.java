@@ -16,8 +16,6 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class adapterchuyenmuc extends BaseAdapter {
-
-
     private Context context;
     private  int layout;
     private List<chuyenmuc> chuyenmucList;
@@ -52,6 +50,7 @@ public class adapterchuyenmuc extends BaseAdapter {
         img.setImageResource(cm.getHinhanhchuyenmucl());
         txt.setText(cm.getTenchuyenmuc());
         img.setImageResource(cm.getHinhanhchuyenmucl());
+
 
         return  view;
     }

@@ -99,7 +99,11 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }
-              else if(i==2){
+                else if(i==2){
+                    Intent intent  = new Intent(MainActivity.this, MainActivityNote.class);
+                    startActivity(intent);
+                }
+              else if(i==3){
                   finish();
                 }
 
@@ -191,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
         chuyenmucArrayList.add(new chuyenmuc("Thông tin",R.drawable.ic_baseline_face_24));
 
         chuyenmucArrayList.add(new chuyenmuc("Thời tiết",R.drawable.ic_baseline_cloud_24));
+        chuyenmucArrayList.add(new chuyenmuc("Ghi chú",R.drawable.ic_baseline_event_note_24));
         chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
         adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
 

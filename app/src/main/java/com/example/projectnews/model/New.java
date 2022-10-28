@@ -2,9 +2,20 @@ package com.example.projectnews.model;
 
 public class New {
     private int ID;
-    private String TenBao;
-    private String NoiDung;
-    private String Anh;
+    private String Category;
+    private String Title;
+    private String Content;
+    private String ImageLink;
+
+    public New() {}
+
+    public New(int ID, String category, String title, String content, String imageLink) {
+        this.ID = ID;
+        Category = category;
+        Title = title;
+        Content = content;
+        ImageLink = imageLink;
+    }
 
     public int getID() {
         return ID;
@@ -14,45 +25,35 @@ public class New {
         this.ID = ID;
     }
 
-    public String getTenBao() {
-        return TenBao;
+    public String getCategory() {
+        return Category;
     }
 
-    public void setTenBao(String tenBao) {
-        TenBao = tenBao;
+    public void setCategory(String category) {
+        Category = category;
     }
 
-    public String getNoiDung() {
-        return NoiDung;
+    public String getTitle() {
+        return Title;
     }
 
-    public void setNoiDung(String noiDung) {
-        NoiDung = noiDung;
+    public void setTitle(String title) {
+        Title = title;
     }
 
-    public String getAnh() {
-        return Anh;
+    public String getContent() {
+        return Content;
     }
 
-    public void setAnh(String anh) {
-        Anh = anh;
+    public void setContent(String content) {
+        Content = content;
     }
 
-    public New(int ID, String tenBao, String noiDung, String anh) {
-        this.ID = ID;
-        TenBao = tenBao;
-        NoiDung = noiDung;
-        Anh = anh;
+    public String getImageLink() {
+        return ImageLink;
     }
 
-    public New(String tenBao, String noiDung, String anh) {
-        TenBao = tenBao;
-        NoiDung = noiDung;
-        Anh = anh;
-    }
-
-    public New(String tenBao, String noiDung) {
-        TenBao = tenBao;
-        NoiDung = noiDung;
+    public void setImageLink(String imageLink) {
+        ImageLink = imageLink;
     }
 }

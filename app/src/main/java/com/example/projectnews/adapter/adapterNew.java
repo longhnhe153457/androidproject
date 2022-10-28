@@ -47,9 +47,9 @@ public class adapterNew extends BaseAdapter {
         viewHolder.imbBao=view.findViewById(R.id.imgnew);
         view.setTag(viewHolder);
         New news=(New) getItem(i);
-        viewHolder.txtTenbao.setText(news.getTenBao());
+        viewHolder.txtTenbao.setText(news.getCategory());
 
-        Picasso.get().load(news.getAnh()).placeholder(R.drawable.ic_baseline_cloud_download_24).error(R.drawable.ic_baseline_image_24).into(viewHolder.imbBao);
+        Picasso.get().load(news.getImageLink()).placeholder(R.drawable.ic_baseline_cloud_download_24).error(R.drawable.ic_baseline_image_24).into(viewHolder.imbBao);
 
     return  view;
 

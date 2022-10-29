@@ -6,15 +6,28 @@ public class New {
     private String Title;
     private String Content;
     private String ImageLink;
+    private String Author;
+    private String CreateDate;
 
     public New() {}
 
-    public New(int ID, String category, String title, String content, String imageLink) {
+    public New(int ID, String title, String content, String imageLink, String author, String createDate) {
+        this.ID = ID;
+        Title = title;
+        Content = content;
+        ImageLink = imageLink;
+        Author = author;
+        CreateDate = createDate;
+    }
+
+    public New(int ID, String category, String title, String content, String imageLink, String author, String createDate) {
         this.ID = ID;
         Category = category;
         Title = title;
         Content = content;
         ImageLink = imageLink;
+        Author = author;
+        CreateDate = createDate;
     }
 
     public int getID() {
@@ -55,5 +68,21 @@ public class New {
 
     public void setImageLink(String imageLink) {
         ImageLink = imageLink;
+    }
+
+    public String getAuthor() {
+        return Author;
+    }
+
+    public void setAuthor(String author) {
+        Author = author;
+    }
+
+    public String getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        CreateDate = createDate;
     }
 }

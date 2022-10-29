@@ -151,6 +151,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
     private String SQLQuery4 = "INSERT INTO bao VALUES (null,'Bao co co','','https://toplist.vn/images/800px/rua-va-tho-230179.jpg')";
     private String SQLQuery5 = "INSERT INTO bao VALUES (null,'Test db','','https://toplist.vn/images/800px/cu-cai-trang-230181.jpg')";
     private String SQLQuery6 = "INSERT INTO bao VALUES (null,'Minh hoa','','https://toplist.vn/images/800px/de-den-va-de-trang-230182.jpg')";

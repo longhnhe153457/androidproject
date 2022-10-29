@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         textName= findViewById(R.id.TEXT_NAME);
-        newArrayList= DBHelper.getAllNews();
+        newArrayList= DBHelper.getData();
         adapterNew= new adapterNew( getApplicationContext() , newArrayList);
         listViewNew.setAdapter(adapterNew);
 

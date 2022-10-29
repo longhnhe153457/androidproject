@@ -78,8 +78,10 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         String username1 = intent.getStringExtra("username");
 
         LoadMainView();
-//        ActionBar();
-//        ActionViewFlipper();
+        ActionBar();
+
+     //   ActionViewFlipper();
+
     }
 
     private  void ActionViewFlipper(){
@@ -120,48 +122,55 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         newCateRV.setAdapter(categoryRVAdapter);
         newsRVAdapter.notifyDataSetChanged();
 
-//        toolbar= findViewById(R.id.toolbarmanhinhchinh);
-//        viewFlipper=findViewById(R.id.viewflipper);
-//        listView = findViewById(R.id.lisviewmanhinhchinh);
-//        listViewThongTin=findViewById(R.id.listviewthongtin);
-//        navigationView=findViewById(R.id.navigationview);
 
-//        //navigation
-//        Intent intent = getIntent();
-//        String username1 = intent.getStringExtra("username");
-//        if(username1 == null){
-//            username1 = "Newbie";
-//        }
-//        if(username1!=null) {
-//            Cursor cursor1 = dbHelper.getDatausername(username1);
-//        // String ten = cursor.getString(0);
-//            String sdt = cursor1.getString(6);
-//            taiKhoanArrayList = new  ArrayList<>();
-//
-//            taiKhoanArrayList.add(new TaiKhoan(username1,sdt));
-//
-//            adapterthongtin = new adapterthongtin(this, R.layout.navigation_thongtin,taiKhoanArrayList);
-//            listViewThongTin.setAdapter(adapterthongtin);
-//        }
-//
-//        //Navigation 2
-//        chuyenmucArrayList =new ArrayList<>();
-//        chuyenmucArrayList.add(new chuyenmuc("Thông tin",R.drawable.ic_baseline_face_24));
-//        chuyenmucArrayList.add(new chuyenmuc("Thời tiết",R.drawable.ic_baseline_cloud_24));
-//        chuyenmucArrayList.add(new chuyenmuc("Ghi chú",R.drawable.ic_baseline_event_note_24));
-//        chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
-//        adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
-//        listView.setAdapter(adapterchuyenmuc);
+       toolbar= findViewById(R.id.toolbarmanhinhchinh);
+        viewFlipper=findViewById(R.id.viewflipper);
+        listView = findViewById(R.id.listviewmanhinhchinh);
+        listViewThongTin=findViewById(R.id.listviewThongTin);
+        navigationView=findViewById(R.id.navigationview);
+        drawerLayout = findViewById(R.id.drawerlayout);
+
+        //navigation
+        Intent intent = getIntent();
+        String username1 = intent.getStringExtra("username");
+        if(username1 == null){
+            username1 = "Newbie";
+        }
+        if(username1!=null) {
+            Cursor cursor1 = dbHelper.getDatausername(username1);
+        // String ten = cursor.getString(0);
+            String sdt = cursor1.getString(6);
+            taiKhoanArrayList = new  ArrayList<>();
+
+            taiKhoanArrayList.add(new TaiKhoan(username1,sdt));
+
+            adapterthongtin = new adapterthongtin(this, R.layout.navigation_thongtin,taiKhoanArrayList);
+            listViewThongTin.setAdapter(adapterthongtin);
+        }
+
+        //Navigation 2
+        chuyenmucArrayList =new ArrayList<>();
+        chuyenmucArrayList.add(new chuyenmuc("Thông tin",R.drawable.ic_baseline_face_24));
+        chuyenmucArrayList.add(new chuyenmuc("Thời tiết",R.drawable.ic_baseline_cloud_24));
+        chuyenmucArrayList.add(new chuyenmuc("Ghi chú",R.drawable.ic_baseline_event_note_24));
+        chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
+        adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
+        listView.setAdapter(adapterchuyenmuc);
     }
+
     private  void ActionBar(){
         setSupportActionBar(toolbar);
+        //set nút của toolbar là true
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //Tạo icon cho toolbar
         toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
+
+        //Tạo sự kiện click cho toolbar
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                drawerLayout.openDrawer(GravityCompat.START);
-
+            public void onClick(View v) {
+                //Gọi lại drawerlayout, do toolbar được gọi ra nhờ drawerlayout
+                drawerLayout.openDrawer(GravityCompat.START);   //GravityCompat.START làm nó nhảy ra giữa
             }
         });
     }

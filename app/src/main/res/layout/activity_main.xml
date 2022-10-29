@@ -1,34 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/idToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="BÁO MỚI"
-                    android:textColor="@color/grey"
-                    android:textAlignment="center"
-                    android:layout_marginEnd="15dp"
-                    android:textStyle="bold"
-                    android:layout_marginRight="15dp"
-                    >
-                </TextView>
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+    tools:context=".MainActivity">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+
+        android:id="@+id/drawerlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/idToolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            >-->
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="BÁO MỚI"-->
+<!--                    android:textColor="@color/grey"-->
+<!--                    android:textAlignment="center"-->
+<!--                    android:layout_marginEnd="15dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:layout_marginRight="15dp"-->
+<!--                    >-->
+<!--                </TextView>-->
+<!--            </RelativeLayout>-->
+<!--        </androidx.appcompat.widget.Toolbar>-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarmanhinhchinh"
-        app:title="Danh sách"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@id/idToolbar">
@@ -69,24 +80,28 @@
         android:id="@+id/idPBLoading"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
-<!--    <com.google.android.material.navigation.NavigationView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_gravity="start"-->
-<!--        android:id="@+id/navigationview">-->
-<!--        <ListView-->
-<!--            android:id="@+id/listviewthongtin"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="150dp">-->
-<!--        </ListView>-->
-<!--        <ListView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:id="@+id/lisviewmanhinhchinh"-->
-<!--            android:layout_marginTop="150dp"-->
-<!--            >-->
 
-<!--        </ListView>-->
+</LinearLayout>
 
-<!--    </com.google.android.material.navigation.NavigationView>-->
-</RelativeLayout>
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigationview"
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/listviewThongTin"
+                android:layout_width="match_parent"
+                android:layout_height="145dp"></ListView>
+            <ListView
+                android:id="@+id/listviewmanhinhchinh"
+                android:layout_marginTop="150dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></ListView>
+
+
+        </com.google.android.material.navigation.NavigationView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>

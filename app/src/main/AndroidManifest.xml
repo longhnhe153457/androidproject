@@ -48,13 +48,13 @@
         <activity android:name=".PasswordActivity" />
         <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".ResetActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".AddNotesActivity" />
         <activity android:name=".UpdateActivityNote" />
         <activity android:name=".WeatherActity" />
         <activity android:name=".MainActivityNote" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

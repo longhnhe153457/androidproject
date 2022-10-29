@@ -1,4 +1,4 @@
-package com.example.projectnews;
+package com.example.projectnews.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -24,20 +24,20 @@ public class DBHelper extends SQLiteOpenHelper {
         this.context = context;
     }
     //NEW_CATEGORY TABLE
-    private static final String NEW_CATEGORY_TABLE_NAME = "newcategory";
-    private static final String NEW_CAT_ID_COLUMN = "id";
-    private static final String NEW_CAT_NAME_COLUMN = "name";
-    private static final String NEW_CAT_IMAGE_LINK_COLUMN = "imagelink";
+    public static final String NEW_CATEGORY_TABLE_NAME = "newcategory";
+    public static final String NEW_CAT_ID_COLUMN = "id";
+    public static final String NEW_CAT_NAME_COLUMN = "name";
+    public static final String NEW_CAT_IMAGE_LINK_COLUMN = "imagelink";
 
     //NEW TABLE
-    private static final String NEW_TABLE_NAME = "new";
-    private static final String NEW_ID_COLUMN = "id";
-    private static final String NEW_CATEGORY_NAME_COLUMN = "cate_name";
-    private static final String NEW_TITLE_COLUMN = "title";
-    private static final String NEW_CONTENT_COLUMN = "content";
-    private static final String NEW_IMAGE_COLUMN = "image";
-    private static final String NEW_AUTHOR_COLUMN = "author";
-    private static final String NEW_CREATE_DATE_COLUMN = "create_date";
+    public static final String NEW_TABLE_NAME = "new";
+    public static final String NEW_ID_COLUMN = "id";
+    public static final String NEW_CATEGORY_NAME_COLUMN = "cate_name";
+    public static final String NEW_TITLE_COLUMN = "title";
+    public static final String NEW_CONTENT_COLUMN = "content";
+    public static final String NEW_IMAGE_COLUMN = "image";
+    public static final String NEW_AUTHOR_COLUMN = "author";
+    public static final String NEW_CREATE_DATE_COLUMN = "create_date";
 
     //NOTE TABLE
     private static final String tableName = "mynotes";
@@ -51,7 +51,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String create_new_cat_table = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT)",
                 NEW_CATEGORY_TABLE_NAME, NEW_CAT_ID_COLUMN, NEW_CAT_NAME_COLUMN, NEW_CAT_IMAGE_LINK_COLUMN);
         String create_new_table = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
-                NEW_TABLE_NAME, NEW_ID_COLUMN, NEW_TITLE_COLUMN, NEW_CATEGORY_NAME_COLUMN, NEW_CONTENT_COLUMN, NEW_IMAGE_COLUMN, NEW_AUTHOR_COLUMN, NEW_CREATE_DATE_COLUMN);
+                NEW_TABLE_NAME, NEW_ID_COLUMN, NEW_CATEGORY_NAME_COLUMN, NEW_TITLE_COLUMN, NEW_CONTENT_COLUMN, NEW_IMAGE_COLUMN, NEW_AUTHOR_COLUMN, NEW_CREATE_DATE_COLUMN);
         String query = "CREATE TABLE "+tableName+
                 " ("+columnId+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 columnTitle+ " TEXT, "+
@@ -66,11 +66,9 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL(SQLQuery2);
 
         //New
-        MyDB.execSQL(SQLQuery4);
-        MyDB.execSQL(SQLQuery5);
-        MyDB.execSQL(SQLQuery6);
-        MyDB.execSQL(SQLQuery7);
-        MyDB.execSQL(SQLQuery8);
+        MyDB.execSQL(insertTableNewCategoryquery);
+        MyDB.execSQL(insertTableNewquery);
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase MyDB, int i, int i1) {
@@ -171,7 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
-    Cursor readNotes(){
+    public Cursor readNotes(){
         String query = "SELECT * FROM "+  tableName;
         SQLiteDatabase database= this.getReadableDatabase();
 
@@ -181,13 +179,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return  cursor;
     }
-    void deleteAllNotes(){
+    public void deleteAllNotes(){
         SQLiteDatabase database = this.getWritableDatabase();
         String query = "DELETE FROM "+ tableName;
         database.execSQL(query);
 
     }
-    void updateNotes(String title,String desc , String id){
+    public void updateNotes(String title,String desc , String id){
         SQLiteDatabase database =  this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(columnTitle,title);
@@ -210,35 +208,28 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    /*
-       @author minhbd
-       Feature News Query
-   */
-    public ArrayList<New> getAllNews() {
-        ArrayList<New>  newList = new ArrayList<>();
-        String query = "SELECT * FROM " + NEW_TABLE_NAME;
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-        cursor.moveToFirst();
-
-        while(cursor.isAfterLast() == false) {
-            New newObj = new New(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4), cursor.getString(5), cursor.getString(6));
-            newList.add(newObj);
-            cursor.moveToNext();
-        }
-        return newList;
-    }
 
     //DATA USER
     private String SQLQuery2 = "INSERT INTO user VAlUES ('admin','admin','admin@gmail.com',0,1,'','admin')";
 
+    //DATA NEW CATEGORY
+    private String insertTableNewCategoryquery = "INSERT INTO "+NEW_CATEGORY_TABLE_NAME+" ("+NEW_CAT_NAME_COLUMN+","+NEW_CAT_IMAGE_LINK_COLUMN+" ) VALUES \n" +
+            "   ('Mới nhất', 'https://play-lh.googleusercontent.com/P8D-vfnCmeaP3b3pbS_JmWlDkGGYaPg1xE4rOXMWPiTsL8fKlpsTxgVOkWj7w1ryx0pC'),\n" +
+            "   ('Công nghệ', 'https://i.chungta.vn/2020/01/24/AI-tech-620x389-2485-1579853809.jpg'),\n" +
+            "   ('Thế giới', 'http://nghiencuuquocte.org/wp-content/uploads/2021/01/globe_hand.jpg'),\n" +
+            "   ('Thể thao', 'https://irace.vn/wp-content/uploads/2019/10/silhouete-action-sport-outdoors-group-kids-having-fun-playing-soccer-football.jpg'),\n" +
+            "   ('Sức khỏe', 'https://ichef.bbci.co.uk/news/640/cpsprodpb/D897/production/_101174455_whatsubject.jpg'),\n" +
+            "   ('Thời trang', 'https://media.vneconomy.vn/w800/images/upload/2022/09/15/avaa.png');";
+
     //DATA NEW
-    private String SQLQuery4 = "INSERT INTO " +NEW_TABLE_NAME+ " VALUES (null,'Bao co co','The gioi', 'a','https://toplist.vn/images/800px/rua-va-tho-230179.jpg', 'Duc Minh', '12/2/2022')";
-    private String SQLQuery5 = "INSERT INTO " +NEW_TABLE_NAME+ " VALUES (null,'Test db','The thao','a','https://toplist.vn/images/800px/cu-cai-trang-230181.jpg', 'Duc Minh', '12/2/2022')";
-    private String SQLQuery6 = "INSERT INTO " +NEW_TABLE_NAME+ " VALUES (null,'Minh hoa','The thao','a','https://toplist.vn/images/800px/de-den-va-de-trang-230182.jpg', 'Duc Minh', '12/2/2022')";
-    private String SQLQuery7 = "INSERT INTO " +NEW_TABLE_NAME+ " VALUES (null,'Anh hoat hinh','The thao','a','https://toplist.vn/images/800px/chu-be-chan-cuu-230183.jpg', 'Duc Minh', '12/2/2022')";
-    private String SQLQuery8 = "INSERT INTO " +NEW_TABLE_NAME+ " VALUES (null,'Anh nen','Suc Khoe','a','https://toplist.vn/images/800px/cau-be-chan-cuu-va-cay-da-co-thu-230184.jpg', 'Duc Minh', '12/2/2022')";
+    private String insertTableNewquery = "INSERT INTO "+NEW_TABLE_NAME+" ("+NEW_CATEGORY_NAME_COLUMN+","+NEW_TITLE_COLUMN+","+NEW_CONTENT_COLUMN+","+NEW_IMAGE_COLUMN+","+NEW_AUTHOR_COLUMN+","+NEW_CREATE_DATE_COLUMN+" ) VALUES \n" +
+            "   ('Thể Thao', 'Quang Hải không dự AFF Cup 2022', 'Liên đoàn Bóng đá Việt Nam xác nhận tiền vệ Nguyễn Quang Hải không tham dự AFF Cup 2022 cùng đội tuyển Việt Nam.\n" +
+            "\n" +
+            "Tổng thư ký VFF Lê Hoài Anh cho biết đã làm việc với Pau FC - đội bóng chủ quản hiện tại của Quang Hải. CLB nước Pháp quyết định không nhả người do thời gian tổ chức AFF Cup không thuộc FIFA Days. \"VFF đã cố gắng nhưng CLB có toàn quyền quyết định\", ông Hoài Anh xác nhận với VnExpress chiều 29/10. \"Quang Hải phải tham dự cả các trận giao hữu cùng CLB theo quy định cầu thủ chuyên nghiệp\"', 'https://i1-thethao.vnecdn.net/2022/10/29/-7331-1667039856.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=VRyJuGY6aC2oQOkWgt1UYg', 'Hiếu Lương', '29/10/2022'),\n" +
 
-
+            "   ('Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
+            "   ('Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
+            "   ('Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
+            "   ('Công nghệ', 'Trên tay cục CarPlay không dây của QuadLock: nhỏ gọn, kết nối khá nhanh', 'Cho tới khi cầm cục này trên tay thì mình chỉ biết thương hiệu QuadLock chuyên làm các ngàm xịn gắn điện thoại, case gắn điện thoại lên xe mô tô, xe ô tô, và chắc cũng đã nhiều anh em chơi xe sử dụng cái case của QuadLock rồi. Nếu anh em đã tin yêu thương hiệu này thì giờ có thể sử dụng thêm một món của họ, cục CarPlay không dây.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6186575_Cover.jpg', 'Đức Minh', '2/11/2022');";
 }

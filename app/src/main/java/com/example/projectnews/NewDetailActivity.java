@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 public class NewDetailActivity extends AppCompatActivity {
     String id, title,desc, category, content, imageURL;
-    private TextView titleTV, subDescTV, contentTV;
+    private TextView titleTV, subDescTV, contentTV, categoryTV;
     private ImageView newsIV;
 
     @Override
@@ -30,16 +30,14 @@ public class NewDetailActivity extends AppCompatActivity {
         imageURL = getIntent().getStringExtra("newImageLink");
 
         titleTV = findViewById(R.id.idTVTitle);
-        subDescTV = findViewById(R.id.idTVSubDesc);
         contentTV = findViewById(R.id.idTVContent);
         newsIV = findViewById(R.id.idIVNews);
-
+        categoryTV = findViewById(R.id.idTVCategory);
         titleTV.setText(title);
-        subDescTV.setText(desc);
+
+        categoryTV.setText(category);
         contentTV.setText(content);
+
         Picasso.get().load(imageURL).into(newsIV);
-
-
-
     }
 }

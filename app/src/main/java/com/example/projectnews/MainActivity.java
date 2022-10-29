@@ -7,26 +7,19 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.projectnews.adapter.NewAdapter;
@@ -34,6 +27,9 @@ import com.example.projectnews.adapter.NewCategoryAdapter;
 import com.example.projectnews.adapter.adapterNew;
 import com.example.projectnews.adapter.adapterchuyenmuc;
 import com.example.projectnews.adapter.adapterthongtin;
+import com.example.projectnews.dao.DBHelper;
+import com.example.projectnews.dao.INewDao;
+import com.example.projectnews.dao.NewDao;
 import com.example.projectnews.model.CategoryRvModal;
 import com.example.projectnews.model.New;
 import com.example.projectnews.model.NewCategory;
@@ -52,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
     ListView listView,listViewNew,listViewThongTin;
     DrawerLayout drawerLayout;
     DBHelper dbHelper;
+    INewDao newDao;
     ArrayList<TaiKhoan> taiKhoanArrayList;
     ArrayList<chuyenmuc> chuyenmucArrayList;
     TextView textName;
@@ -74,11 +71,12 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new DBHelper(this);
+        newDao = new NewDao(this);
         Intent intent = getIntent();
         String username1 = intent.getStringExtra("username");
 
         LoadMainView();
-        ActionBar();
+//        ActionBar();
 
      //   ActionViewFlipper();
 
@@ -95,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             viewFlipper.addView(imageView);
-
         }
         viewFlipper.setFlipInterval(4000);
         viewFlipper.setAutoStart(true);
@@ -112,16 +109,15 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         newCateRV = findViewById(R.id.idRVCategories);
         loadingPB = findViewById(R.id.idPBLoading);
         newArrayList = new ArrayList<>();
-        getNews();
         categoryRvModalArrayList = new ArrayList<>();
         getCategories();
-        newsRVAdapter = new NewAdapter(this, newArrayList);
+        getNews("Công nghệ");
         categoryRVAdapter = new NewCategoryAdapter(categoryRvModalArrayList, this, this::onCategoryClick);
+        newsRVAdapter = new NewAdapter(this, newArrayList);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newsRVAdapter);
         newCateRV.setAdapter(categoryRVAdapter);
         newsRVAdapter.notifyDataSetChanged();
-
 
        toolbar= findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper=findViewById(R.id.viewflipper);
@@ -176,25 +172,24 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
     }
 
     private void getCategories(){
-        categoryRvModalArrayList.add(new CategoryRvModal(1,"Mới nhất", "https://bucket.nhanh.vn/store1/41822/menu/icon_15224_1568273112_icon-home-cam.png"));
-        categoryRvModalArrayList.add(new CategoryRvModal(2,"Công nghệ", "https://i.chungta.vn/2020/01/24/AI-tech-620x389-2485-1579853809.jpg"));
-        categoryRvModalArrayList.add(new CategoryRvModal(3,"Thế giới", "http://nghiencuuquocte.org/wp-content/uploads/2021/01/globe_hand.jpg"));
-        categoryRvModalArrayList.add(new CategoryRvModal(4,"Thể thao", "https://irace.vn/wp-content/uploads/2019/10/silhouete-action-sport-outdoors-group-kids-having-fun-playing-soccer-football.jpg"));
-        categoryRvModalArrayList.add(new CategoryRvModal(5,"Sức khỏe", "https://ichef.bbci.co.uk/news/640/cpsprodpb/D897/production/_101174455_whatsubject.jpg"));
-        categoryRvModalArrayList.add(new CategoryRvModal(6,"Thời trang", "https://media.vneconomy.vn/w800/images/upload/2022/09/15/avaa.png"));
+        loadingPB.setVisibility(View.VISIBLE);
+
+        categoryRvModalArrayList = newDao.getAllNewsCategory();
+        loadingPB.setVisibility(View.GONE);
     }
 
-    private void getNews(){
+    private void getNews(String category){
         loadingPB.setVisibility(View.VISIBLE);
-        newArrayList.clear();
-        newArrayList = dbHelper.getAllNews();
+        newArrayList = newDao.getNewsByCategory(category);
         loadingPB.setVisibility(View.GONE);
-
     }
 
     @Override
     public void onCategoryClick(int position) {
-
+        CategoryRvModal categoryRvModal = categoryRvModalArrayList.get(position);
+//        newArrayList = newDao.getNewsByCategory(categoryRvModal.getCategory());
+        getNews(categoryRvModal.getCategory());
+        newsRVAdapter.notifyDataSetChanged();
     }
 
     @Override

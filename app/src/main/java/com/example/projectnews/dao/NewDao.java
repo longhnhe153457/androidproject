@@ -55,6 +55,23 @@ public class NewDao extends DBHelper implements INewDao{
     }
 
     @Override
+    public ArrayList<New> getNewsBySearch(String text) {
+        ArrayList<New>  newList = new ArrayList<>();
+        String query = "SELECT * FROM " +  NEW_TABLE_NAME +" WHERE "+ NEW_TITLE_COLUMN +" like '%" + text+"%';";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+
+        while(cursor.isAfterLast() == false) {
+            New newObj = new New(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getString(4), cursor.getString(5), cursor.getString(6));
+            newList.add(newObj);
+            cursor.moveToNext();
+        }
+        return newList;
+    }
+
+    @Override
     public ArrayList<CategoryRvModal> getAllNewsCategory() {
         ArrayList<CategoryRvModal>  newCateList = new ArrayList<>();
         String query = "SELECT * FROM " +  NEW_CATEGORY_TABLE_NAME;

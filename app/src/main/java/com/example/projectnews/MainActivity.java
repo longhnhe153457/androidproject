@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         String username1 = intent.getStringExtra("username");
 
         LoadMainView();
-//        ActionBar();
+        ActionBar();
 
      //   ActionViewFlipper();
 
@@ -133,8 +133,9 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
             username1 = "Newbie";
         }
         if(username1!=null) {
+            username1 = "Newbie";
             Cursor cursor1 = dbHelper.getDatausername(username1);
-        // String ten = cursor.getString(0);
+            //String ten = cursor.getString(0);
             String sdt = cursor1.getString(6);
             taiKhoanArrayList = new  ArrayList<>();
 
@@ -202,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch ((item.getItemId())){
             case R.id.menu1:
-                Intent intent = new Intent(MainActivity.this,MainTimKiem.class);
+                Intent intent = new Intent(MainActivity.this, NewSearchActivity.class);
                 startActivity(intent);
                 break;
             default:break;

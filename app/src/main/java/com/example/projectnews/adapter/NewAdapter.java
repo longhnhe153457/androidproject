@@ -50,6 +50,8 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
                 intent.putExtra("newCategory", newArrayList.get(position).getCategory());
                 intent.putExtra("newContent", newArrayList.get(position).getContent());
                 intent.putExtra("newImageLink", newArrayList.get(position).getImageLink());
+                intent.putExtra("newAuthor", newArrayList.get(position).getAuthor());
+                intent.putExtra("newCreateDate", newArrayList.get(position).getCreateDate());
                 context.startActivity(intent);
             }
         });

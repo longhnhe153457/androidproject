@@ -31,8 +31,9 @@
     </androidx.appcompat.widget.Toolbar>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@id/idToolbar"
+        android:id="@+id/idSVNewDetailContent"
         >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,44 +49,74 @@
             android:layout_marginBottom="3dp"
             android:padding="3dp"
             android:scaleType="centerCrop" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:id="@+id/idTVTitle"
-            android:layout_below="@id/idIVNews"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:padding="4dp"
-            android:layout_margin="4dp"
-            />
 
         <TextView
-            android:id="@+id/idTVCategory"
+            android:id="@+id/idTVTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/idTVTitle"
+            android:layout_below="@id/idIVNews"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="4dp"
             android:padding="4dp"
-            android:text="Category"
+            android:text="Title"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/idTVTitle"
+            android:id="@+id/middleContentNewDetail"
+            android:layout_marginTop="3dp">
+            <TextView
+                android:id="@+id/idTVCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:padding="4dp"
+                android:text="Category"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="80dp"
+                android:src="@drawable/ic_share_new" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="32dp"
+                android:onClick="onSaveFavor"
+                android:src="@drawable/ic_save_favor" />
+
+        </RelativeLayout>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Content"
-            android:layout_below="@id/idTVCategory"
+            android:layout_below="@id/middleContentNewDetail"
             android:layout_margin="4dp"
             android:padding="4dp"
             android:textColor="@color/black"
             android:id="@+id/idTVContent"
             android:textSize="18sp"
             />
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idTVContent"
@@ -94,10 +125,10 @@
                 android:id="@+id/idTVAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/idTVTitle"
+                android:layout_alignParentLeft="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="170dp"
+                android:layout_marginLeft="32dp"
                 android:layout_marginBottom="4dp"
                 android:padding="4dp"
                 android:text="Author"
@@ -110,15 +141,24 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="4dp"
+                android:layout_marginRight="32dp"
                 android:layout_marginBottom="4dp"
+                android:layout_alignParentRight="true"
                 android:padding="4dp"
                 android:text="Create Date"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
-        </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
     </ScrollView>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/idSVNewDetailContent"
+        android:layout_gravity="start"
+        android:id="@+id/navbottom">
 
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </RelativeLayout>

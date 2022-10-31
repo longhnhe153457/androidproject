@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,7 +23,7 @@ import android.widget.ViewFlipper;
 
 import com.example.projectnews.adapter.NewAdapter;
 import com.example.projectnews.adapter.NewCategoryAdapter;
-import com.example.projectnews.adapter.adapterNew;
+import com.example.projectnews.adapter.NewFavorAdapter;
 import com.example.projectnews.adapter.adapterchuyenmuc;
 import com.example.projectnews.adapter.adapterthongtin;
 import com.example.projectnews.dao.DBHelper;
@@ -32,7 +31,6 @@ import com.example.projectnews.dao.INewDao;
 import com.example.projectnews.dao.NewDao;
 import com.example.projectnews.model.CategoryRvModal;
 import com.example.projectnews.model.New;
-import com.example.projectnews.model.NewCategory;
 import com.example.projectnews.model.TaiKhoan;
 import com.example.projectnews.model.chuyenmuc;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
     ArrayList<TaiKhoan> taiKhoanArrayList;
     ArrayList<chuyenmuc> chuyenmucArrayList;
     TextView textName;
-    adapterNew adapterNew;
+    NewFavorAdapter NewFavorAdapter;
     adapterthongtin adapterthongtin;
     adapterchuyenmuc adapterchuyenmuc;
     String email;
@@ -74,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         newDao = new NewDao(this);
         Intent intent = getIntent();
         String username1 = intent.getStringExtra("username");
-
+        dbHelper.addSession("username", "ducminh");
         LoadMainView();
         ActionBar();
 
@@ -134,9 +132,10 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         }
         if(username1!=null) {
             username1 = "Newbie";
-            Cursor cursor1 = dbHelper.getDatausername(username1);
-            //String ten = cursor.getString(0);
-            String sdt = cursor1.getString(6);
+            String sdt = "123";
+//            Cursor cursor1 = dbHelper.getDatausername(username1);
+//            //String ten = cursor.getString(0);
+//            String sdt = cursor1.getString(6);
             taiKhoanArrayList = new  ArrayList<>();
 
             taiKhoanArrayList.add(new TaiKhoan(username1,sdt));
@@ -181,7 +180,8 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
 
     private void getNews(String category){
         loadingPB.setVisibility(View.VISIBLE);
-        newArrayList = newDao.getNewsByCategory(category);
+//        newArrayList = newDao.getNewsByCategory(category);
+        newArrayList = newDao.getAllNews();
         loadingPB.setVisibility(View.GONE);
     }
 

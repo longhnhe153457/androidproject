@@ -23,6 +23,11 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, DBNAME, null, 1);
         this.context = context;
     }
+    //SESSION TABLE
+    public static final String SESSION_TABLE_NAME = "session";
+    public static final String SESSION_KEY_COLUMN = "key";
+    public static final String SESSION_VALUE_COLUMN = "value";
+
     //NEW_CATEGORY TABLE
     public static final String NEW_CATEGORY_TABLE_NAME = "newcategory";
     public static final String NEW_CAT_ID_COLUMN = "id";
@@ -39,6 +44,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String NEW_AUTHOR_COLUMN = "author";
     public static final String NEW_CREATE_DATE_COLUMN = "create_date";
 
+    //NEW FAVOR TABLE
+    public static final String NEW_FAVOR_TABLE_NAME = "new_favor";
+    public static final String NEW_FAVOR_ID_COLUMN = "id";
+    public static final String NEW_FAVOR_NEW_ID_COLUMN = "new_id";
+    public static final String NEW_FAVOR_USER_COLUMN = "username";
+
     //NOTE TABLE
     private static final String tableName = "mynotes";
     private static final String columnId = "id";
@@ -48,10 +59,15 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase MyDB) {
        // MyDB.execSQL(SQLQuery1);
+        String create_session_table = String.format("CREATE TABLE %s(%s TEXT, %s TEXT)",
+                SESSION_TABLE_NAME, SESSION_KEY_COLUMN, SESSION_VALUE_COLUMN);
         String create_new_cat_table = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT)",
                 NEW_CATEGORY_TABLE_NAME, NEW_CAT_ID_COLUMN, NEW_CAT_NAME_COLUMN, NEW_CAT_IMAGE_LINK_COLUMN);
         String create_new_table = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT)",
                 NEW_TABLE_NAME, NEW_ID_COLUMN, NEW_CATEGORY_NAME_COLUMN, NEW_TITLE_COLUMN, NEW_CONTENT_COLUMN, NEW_IMAGE_COLUMN, NEW_AUTHOR_COLUMN, NEW_CREATE_DATE_COLUMN);
+        String create_new_favor_table = String.format("CREATE TABLE %s(%s INTEGER PRIMARY KEY AUTOINCREMENT, %s INTEGER, %s TEXT)",
+                NEW_FAVOR_TABLE_NAME, NEW_FAVOR_ID_COLUMN, NEW_FAVOR_NEW_ID_COLUMN, NEW_FAVOR_USER_COLUMN);
+
         String query = "CREATE TABLE "+tableName+
                 " ("+columnId+ " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 columnTitle+ " TEXT, "+
@@ -59,8 +75,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
         MyDB.execSQL("create Table user(username TEXT primary key, password TEXT, email TEXT, status text, role text,avatar blob,showname text)");
         MyDB.execSQL(query);
+        MyDB.execSQL(create_session_table);
         MyDB.execSQL(create_new_cat_table);
         MyDB.execSQL(create_new_table);
+        MyDB.execSQL(create_new_favor_table);
 
         //User
         MyDB.execSQL(SQLQuery2);
@@ -75,11 +93,43 @@ public class DBHelper extends SQLiteOpenHelper {
         MyDB.execSQL("drop Table if exists user");
         MyDB.execSQL("drop Table if exists truyen");
         MyDB.execSQL("DROP TABLE IF EXISTS "+ tableName);
+        MyDB.execSQL("DROP TABLE IF EXISTS "+ SESSION_TABLE_NAME);
         MyDB.execSQL("DROP TABLE IF EXISTS "+ NEW_TABLE_NAME);
+        MyDB.execSQL("DROP TABLE IF EXISTS "+ NEW_FAVOR_TABLE_NAME);
         MyDB.execSQL("DROP TABLE IF EXISTS "+ NEW_CATEGORY_TABLE_NAME);
         onCreate(MyDB);
     }
+    /**
+     * @author Minhbd
+     * Query xử lý session cho app
+     * **/
+    public void addSession(String key, String value) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(SESSION_KEY_COLUMN, key);
+        values.put(SESSION_VALUE_COLUMN, value);
+
+        db.insert(SESSION_TABLE_NAME, null, values);
+        db.close();
+    }
+
+    public String getSession(String key) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(SESSION_TABLE_NAME, null, SESSION_KEY_COLUMN + " = ?", new String[] { String.valueOf(key) },null, null, null);
+        if(cursor != null){
+            if(cursor.getCount()==0) return null;
+            cursor.moveToFirst();
+        }
+
+        String value = cursor.getString(1);
+        return value;
+    }
+    public void removeSession(String key) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(SESSION_TABLE_NAME, SESSION_KEY_COLUMN + " = ?", new String[] { String.valueOf(key) });
+        db.close();
+    }
     /*
         @author longhn
         Feature Public Query
@@ -224,12 +274,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //DATA NEW
     private String insertTableNewquery = "INSERT INTO "+NEW_TABLE_NAME+" ("+NEW_CATEGORY_NAME_COLUMN+","+NEW_TITLE_COLUMN+","+NEW_CONTENT_COLUMN+","+NEW_IMAGE_COLUMN+","+NEW_AUTHOR_COLUMN+","+NEW_CREATE_DATE_COLUMN+" ) VALUES \n" +
-            "   ('Thể Thao', 'Quang Hải không dự AFF Cup 2022', 'Liên đoàn Bóng đá Việt Nam xác nhận tiền vệ Nguyễn Quang Hải không tham dự AFF Cup 2022 cùng đội tuyển Việt Nam.\n" +
+            "   ( 'Thể Thao', 'Quang Hải không dự AFF Cup 2022', 'Liên đoàn Bóng đá Việt Nam xác nhận tiền vệ Nguyễn Quang Hải không tham dự AFF Cup 2022 cùng đội tuyển Việt Nam.\n" +
             "\n" +
             "Tổng thư ký VFF Lê Hoài Anh cho biết đã làm việc với Pau FC - đội bóng chủ quản hiện tại của Quang Hải. CLB nước Pháp quyết định không nhả người do thời gian tổ chức AFF Cup không thuộc FIFA Days. \"VFF đã cố gắng nhưng CLB có toàn quyền quyết định\", ông Hoài Anh xác nhận với VnExpress chiều 29/10. \"Quang Hải phải tham dự cả các trận giao hữu cùng CLB theo quy định cầu thủ chuyên nghiệp\"', 'https://i1-thethao.vnecdn.net/2022/10/29/-7331-1667039856.jpg?w=680&h=0&q=100&dpr=1&fit=crop&s=VRyJuGY6aC2oQOkWgt1UYg', 'Hiếu Lương', '29/10/2022'),\n" +
 
-            "   ('Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
-            "   ('Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
-            "   ('Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
-            "   ('Công nghệ', 'Trên tay cục CarPlay không dây của QuadLock: nhỏ gọn, kết nối khá nhanh', 'Cho tới khi cầm cục này trên tay thì mình chỉ biết thương hiệu QuadLock chuyên làm các ngàm xịn gắn điện thoại, case gắn điện thoại lên xe mô tô, xe ô tô, và chắc cũng đã nhiều anh em chơi xe sử dụng cái case của QuadLock rồi. Nếu anh em đã tin yêu thương hiệu này thì giờ có thể sử dụng thêm một món của họ, cục CarPlay không dây.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6186575_Cover.jpg', 'Đức Minh', '2/11/2022');";
+            "   ( 'Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
+            "   ( 'Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
+            "   ( 'Công nghệ', 'Trên tay Canon EOS R7: Quay được 4K60, chống rung ngon, tracking rất nhạy', 'Canon EOS R7 là một chiếc máy cảm biến crop có khả năng quay 4K60fps, độ phân giải ảnh 32,5MP và tốc độ chụp lên tới 30fps nhưng có mức giá cực kì tốt từ nhà Canon. Ngoại hình chắc chắn và menu dễ dùng cùng layout phím bấm cực kì thân thiện, khiến R7 cho mình khá nhiều ấn tượng tốt.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6180046_cover_tren-tay-canon-eos-r7-1.jpg', 'Đức Minh', '30/10/2022'),\n" +
+            "   ( 'Công nghệ', 'Trên tay cục CarPlay không dây của QuadLock: nhỏ gọn, kết nối khá nhanh', 'Cho tới khi cầm cục này trên tay thì mình chỉ biết thương hiệu QuadLock chuyên làm các ngàm xịn gắn điện thoại, case gắn điện thoại lên xe mô tô, xe ô tô, và chắc cũng đã nhiều anh em chơi xe sử dụng cái case của QuadLock rồi. Nếu anh em đã tin yêu thương hiệu này thì giờ có thể sử dụng thêm một món của họ, cục CarPlay không dây.', 'https://photo2.tinhte.vn/data/attachment-files/2022/10/6186575_Cover.jpg', 'Đức Minh', '2/11/2022');";
 }

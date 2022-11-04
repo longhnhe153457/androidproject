@@ -113,9 +113,13 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         categoryRVAdapter = new NewCategoryAdapter(categoryRvModalArrayList, this, this::onCategoryClick);
         newsRVAdapter = new NewAdapter(this, newArrayList);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
+
+        newsRVAdapter.setData(newArrayList);
+
+
         newsRV.setAdapter(newsRVAdapter);
         newCateRV.setAdapter(categoryRVAdapter);
-        newsRVAdapter.notifyDataSetChanged();
+
 
        toolbar= findViewById(R.id.toolbarmanhinhchinh);
         viewFlipper=findViewById(R.id.viewflipper);
@@ -180,8 +184,8 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
 
     private void getNews(String category){
         loadingPB.setVisibility(View.VISIBLE);
-//        newArrayList = newDao.getNewsByCategory(category);
-        newArrayList = newDao.getAllNews();
+        newArrayList = newDao.getNewsByCategory(category);
+//        newArrayList = newDao.getAllNews();
         loadingPB.setVisibility(View.GONE);
     }
 
@@ -190,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         CategoryRvModal categoryRvModal = categoryRvModalArrayList.get(position);
 //        newArrayList = newDao.getNewsByCategory(categoryRvModal.getCategory());
         getNews(categoryRvModal.getCategory());
-        newsRVAdapter.notifyDataSetChanged();
+        newsRVAdapter.setData(newArrayList);
     }
 
     @Override

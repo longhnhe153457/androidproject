@@ -91,6 +91,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="80dp"
+                android:onClick="shareMessenger"
                 android:src="@drawable/ic_share_new" />
 
             <ImageView
@@ -99,8 +100,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="32dp"
-                android:onClick="onSaveFavor"
-                android:src="@drawable/ic_save_favor" />
+                android:id="@+id/idIvSaveNewFv"
+                />
 
         </RelativeLayout>
 

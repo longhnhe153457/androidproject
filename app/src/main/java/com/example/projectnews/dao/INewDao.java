@@ -12,6 +12,7 @@ public interface INewDao {
     public ArrayList<New> getNewsBySearch(String text);
     public ArrayList<CategoryRvModal> getAllNewsCategory();
     public ArrayList<Integer> getListNewFavor(String username);
-    public void AddNewFavor(int newId, String username);
+    public boolean AddNewFavor(int newId, String username);
     public void RemoveNewFavor(int newId, String username);
+    public boolean checkNewExistFavor(int newId, String username);
 }

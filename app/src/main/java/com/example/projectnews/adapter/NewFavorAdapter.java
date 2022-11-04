@@ -28,7 +28,10 @@ public class NewFavorAdapter extends RecyclerView.Adapter<NewFavorAdapter.ViewHo
         this.context = context;
         this.newArrayList = newArrayList;
     }
-
+    public void setData(ArrayList<New> list){
+        this.newArrayList = list;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public NewFavorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

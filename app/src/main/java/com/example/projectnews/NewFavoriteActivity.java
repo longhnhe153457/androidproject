@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.example.projectnews.adapter.NewFavorAdapter;
 import com.example.projectnews.dao.DBHelper;
@@ -31,27 +32,33 @@ public class NewFavoriteActivity extends AppCompatActivity {
         newDao = new NewDao(this);
         newArrayList= new ArrayList<>();
         newsRV = findViewById(R.id.idRVNewsSearchResult);
-        getNewFavor();
 
         newFavorAdapter = new NewFavorAdapter(this, newArrayList);
         newsRV.setLayoutManager(new LinearLayoutManager(this));
         newsRV.setAdapter(newFavorAdapter);
-        newFavorAdapter.notifyDataSetChanged();
+        getNewFavor();
+        newFavorAdapter.setData(newArrayList);
     }
 
     public void onBackMain(View view) {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
+    public void onDeleteNewFavor(View view) {
+        TextView x = view.findViewById(R.id.idTVNewFvMainHeading);
+        String y = x.getText().toString();
+//        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//        startActivity(intent);
+    }
+
 
     void getNewFavor(){
-//        String username = dbHelper.getSession("username");
-//        ArrayList<Integer> listNewId = new ArrayList<>();
-//        listNewId = newDao.getListNewFavor(username);
-//        for( int value : listNewId ) {
-//            New newObj = newDao.getNewById(value);
-//            if(newObj!=null) newArrayList.add(newObj);
-//        }
-        newArrayList = newDao.getAllNews();
+        String username = dbHelper.getSession("username");
+        ArrayList<Integer> listNewId = new ArrayList<>();
+        listNewId = newDao.getListNewFavor(username);
+        for( int value : listNewId ) {
+            New newObj = newDao.getNewById(value);
+            if(newObj!=null) newArrayList.add(newObj);
+        }
     }
 }

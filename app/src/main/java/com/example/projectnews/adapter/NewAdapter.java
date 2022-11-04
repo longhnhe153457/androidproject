@@ -18,6 +18,7 @@ import com.example.projectnews.model.New;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
     Context context;
@@ -26,6 +27,10 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
     public NewAdapter(Context context, ArrayList<New> newArrayList) {
         this.context = context;
         this.newArrayList = newArrayList;
+    }
+    public void setData(ArrayList<New> list){
+        this.newArrayList = list;
+        notifyDataSetChanged();
     }
 
     @NonNull

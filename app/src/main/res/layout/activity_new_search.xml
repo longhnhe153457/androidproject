@@ -11,15 +11,15 @@
         android:layout_height="50dp"
         android:id="@+id/idLLTopBarSearchView"
         android:background="@color/teal_700">
-        <ImageView
-            android:id="@+id/idIVSearchIcon"
+        <Button
+            android:id="@+id/buttonLogin"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:padding="9dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_search_24"
-            android:onClick="onSearchNew"
-            />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="onBackMain"
+            android:text="Đóng" />
+
         <EditText
             android:id="@+id/idEDNewSearch"
             android:layout_width="240dp"
@@ -29,15 +29,16 @@
             android:hint="Tìm kiếm"
             android:inputType="textPersonName"
             />
-
-        <Button
-            android:id="@+id/buttonLogin"
+        <ImageView
+            android:id="@+id/idIVSearchIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:onClick="onBackMain"
-            android:text="Đóng" />
+            android:layout_height="fill_parent"
+            android:padding="9dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_search_24"
+            android:onClick="onSearchNew"
+            />
+
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"

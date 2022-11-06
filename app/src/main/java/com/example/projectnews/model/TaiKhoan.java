@@ -15,8 +15,22 @@ public class TaiKhoan {
         this.status = status;
         this.role = role;
     }
+    public TaiKhoan(String username, String email, String status, String role) {
+        this.username = username;
+        this.email = email;
+        this.status = status;
+        this.role = role;
+    }
 
-    public TaiKhoan(String username, String email,byte [] img) {
+    public TaiKhoan(String username, String email, String status, String role, byte[] img) {
+        this.username = username;
+        this.email = email;
+        this.status = status;
+        this.role = role;
+        this.img = img;
+    }
+
+    public TaiKhoan(String username, String email, byte [] img) {
         this.username = username;
         this.email = email;
         this.img=img;

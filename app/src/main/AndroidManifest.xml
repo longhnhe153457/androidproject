@@ -67,10 +67,12 @@
         <activity android:name=".WeatherActity" />
         <activity android:name=".MainActivityNote" />
         <activity android:name=".MainActivityQuiz" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".GameOver" />
+        <activity android:name=".TaiKhoan" />
         <activity android:name=".StartGame" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,8 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import com.example.projectnews.model.New;
+import com.example.projectnews.model.TaiKhoan;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DBNAME = "Appdocbao.db";
@@ -194,13 +196,35 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor != null)
         {   cursor.moveToFirst();}
         return cursor;
-//        String ten = cursor.getString(0);
-//        String sdt = cursor.getString(6);
-//        byte[] anh = cursor.getBlob(5);
+
 
 
     }
+    public void deleteEmployee(String id){
+        SQLiteDatabase MyDB = this.getReadableDatabase();
+        String query = "DELETE FROM user where username =?";
+        Cursor cursor=MyDB.rawQuery(query, new String[] { id });
 
+    }
+
+    public List<TaiKhoan> getEmployeeList(){
+        String sql = "select * from user where role = 0"  ;
+        SQLiteDatabase MyDB = this.getReadableDatabase();
+        List<TaiKhoan> storeEmployee = new ArrayList<>();
+        Cursor cursor = MyDB.rawQuery(sql,null);
+        if (cursor.moveToFirst()){
+            do {
+                String username = cursor.getString(0);
+                String email = cursor.getString(2);
+                String status = cursor.getString(3);
+                String role = cursor.getString(4);
+                byte [] test = cursor.getBlob(5);
+                storeEmployee.add(new TaiKhoan(username,email,status,role,test));
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return storeEmployee;
+    }
     //Notes
     public void  addNotes(String title, String desc){
 

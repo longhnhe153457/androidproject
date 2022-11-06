@@ -7,22 +7,16 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -32,12 +26,12 @@ import android.widget.ViewFlipper;
 
 import com.example.projectnews.adapter.NewAdapter;
 import com.example.projectnews.adapter.NewCategoryAdapter;
-import com.example.projectnews.adapter.adapterNew;
+
 import com.example.projectnews.adapter.adapterchuyenmuc;
 import com.example.projectnews.adapter.adapterthongtin;
+import com.example.projectnews.dao.DBHelper;
 import com.example.projectnews.model.CategoryRvModal;
 import com.example.projectnews.model.New;
-import com.example.projectnews.model.NewCategory;
 import com.example.projectnews.model.TaiKhoan;
 import com.example.projectnews.model.chuyenmuc;
 import com.google.android.material.navigation.NavigationView;
@@ -56,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
     ArrayList<TaiKhoan> taiKhoanArrayList;
     ArrayList<chuyenmuc> chuyenmucArrayList;
     TextView textName;
-    adapterNew adapterNew;
+  //  adapterNew adapterNew;
     adapterthongtin adapterthongtin;
     adapterchuyenmuc adapterchuyenmuc;
     String email;
@@ -107,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
                     startActivity(intent);
                 }
                 else if(position == 4){
+
+                        Intent intent = new Intent(MainActivity.this, com.example.projectnews.TaiKhoan.class);
+                        startActivity(intent);
+
+                }
+                else{
                     finish();
                 }
             }
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         newCateRV = findViewById(R.id.idRVCategories);
         loadingPB = findViewById(R.id.idPBLoading);
         newArrayList = new ArrayList<>();
-        getNews();
+      //  getNews();
         categoryRvModalArrayList = new ArrayList<>();
         getCategories();
         newsRVAdapter = new NewAdapter(this, newArrayList);
@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         chuyenmucArrayList.add(new chuyenmuc("Thời tiết",R.drawable.ic_baseline_cloud_24));
         chuyenmucArrayList.add(new chuyenmuc("Ghi chú",R.drawable.ic_baseline_event_note_24));
         chuyenmucArrayList.add(new chuyenmuc("Quizz",R.drawable.ic_baseline_quiz_24));
+        chuyenmucArrayList.add(new chuyenmuc("Account",R.drawable.ic_baseline_account_circle_24));
         chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
         adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
         listView.setAdapter(adapterchuyenmuc);
@@ -216,13 +217,13 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         categoryRvModalArrayList.add(new CategoryRvModal(6,"Thời trang", "https://media.vneconomy.vn/w800/images/upload/2022/09/15/avaa.png"));
     }
 
-    private void getNews(){
-        loadingPB.setVisibility(View.VISIBLE);
-        newArrayList.clear();
-        newArrayList = dbHelper.getAllNews();
-        loadingPB.setVisibility(View.GONE);
-
-    }
+//    private void getNews(){
+//        loadingPB.setVisibility(View.VISIBLE);
+//        newArrayList.clear();
+//        newArrayList = dbHelper.getAllNews();
+//        loadingPB.setVisibility(View.GONE);
+//
+//    }
 
     @Override
     public void onCategoryClick(int position) {
@@ -247,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

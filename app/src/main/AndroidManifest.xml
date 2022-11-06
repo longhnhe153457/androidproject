@@ -25,13 +25,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".NewsDetailActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+<!--        <activity-->
+<!--            android:name=".NewDetailActivity"-->
+<!--            android:exported="false">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
+<!--        </activity>-->
         <activity
             android:name=".MainNoiDung"
             android:exported="false">
@@ -53,6 +53,9 @@
         <activity android:name=".UpdateActivityNote" />
         <activity android:name=".WeatherActity" />
         <activity android:name=".MainActivityNote" />
+        <activity android:name=".MainActivityQuiz" />
+        <activity android:name=".GameOver" />
+        <activity android:name=".StartGame" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

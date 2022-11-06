@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -81,6 +82,35 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         ActionBar();
 
      //   ActionViewFlipper();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position == 0){
+                        Intent intent = new Intent(MainActivity.this, UpdateProfileActivity.class);
+                        intent.putExtra("username",username1);
+                        startActivity(intent);
+//                    else {
+//                        Toast.makeText(MainActivity.this,"Bạn không có quyền ",Toast.LENGTH_SHORT).show();
+//                        Log.e("Đăng bài : ","Bạn không có quyền ");
+//                    }
+                }
+                else if(position == 1){
+                    Intent intent = new Intent(MainActivity.this,WeatherActity.class);
+                    startActivity(intent);
+                }
+                else if(position == 2){
+                    Intent intent = new Intent(MainActivity.this,MainActivityNote.class);
+                    startActivity(intent);
+                }
+                else if(position == 3){
+                    Intent intent = new Intent(MainActivity.this,StartGame.class);
+                    startActivity(intent);
+                }
+                else if(position == 4){
+                    finish();
+                }
+            }
+        });
 
     }
 
@@ -134,7 +164,8 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         Intent intent = getIntent();
         String username1 = intent.getStringExtra("username");
         if(username1 == null){
-            username1 = "Newbie";
+            username1 = null;
+
         }
         if(username1!=null) {
             Cursor cursor1 = dbHelper.getDatausername(username1);
@@ -153,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         chuyenmucArrayList.add(new chuyenmuc("Thông tin",R.drawable.ic_baseline_face_24));
         chuyenmucArrayList.add(new chuyenmuc("Thời tiết",R.drawable.ic_baseline_cloud_24));
         chuyenmucArrayList.add(new chuyenmuc("Ghi chú",R.drawable.ic_baseline_event_note_24));
+        chuyenmucArrayList.add(new chuyenmuc("Quizz",R.drawable.ic_baseline_quiz_24));
         chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
         adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
         listView.setAdapter(adapterchuyenmuc);

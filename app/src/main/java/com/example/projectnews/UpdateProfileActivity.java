@@ -1,9 +1,7 @@
 package com.example.projectnews;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,15 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Database;
 
-import com.example.projectnews.adapter.adapterNew;
-import com.example.projectnews.model.New;
+import com.example.projectnews.dao.DBHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -35,7 +30,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     Button btnChonHinh, btnChupHinh, btnLuu,btnHuy;
     EditText edtTen,edtGamil;
     ImageView imgHinhDaiDien;
-    DBHelper DBHelper;
+    com.example.projectnews.dao.DBHelper DBHelper;
     String username;
 
 

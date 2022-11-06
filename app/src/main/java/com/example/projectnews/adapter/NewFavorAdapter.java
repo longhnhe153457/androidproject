@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,13 +19,12 @@ import com.example.projectnews.model.New;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
+public class NewFavorAdapter extends RecyclerView.Adapter<NewFavorAdapter.ViewHolder> {
     Context context;
     ArrayList<New> newArrayList;
 
-    public NewAdapter(Context context, ArrayList<New> newArrayList) {
+    public NewFavorAdapter(Context context, ArrayList<New> newArrayList) {
         this.context = context;
         this.newArrayList = newArrayList;
     }
@@ -32,19 +32,20 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
         this.newArrayList = list;
         notifyDataSetChanged();
     }
-
     @NonNull
     @Override
-    public NewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_new_item, parent, false);
-        return new NewAdapter.ViewHolder(view);
+    public NewFavorAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.activity_new_favor_item, parent, false);
+        return new NewFavorAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewAdapter.ViewHolder holder,@SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull NewFavorAdapter.ViewHolder holder,@SuppressLint("RecyclerView") int position) {
         New newObj = newArrayList.get(position);
         holder.titleTV.setText(newObj.getTitle());
-        holder.subtitleTV.setText(newObj.getContent());
+        holder.contentTV.setText(newObj.getContent());
+        holder.authorTV.setText(newObj.getAuthor());
+        holder.createDateTV.setText(newObj.getCreateDate());
         Picasso.get().load(newObj.getImageLink()).placeholder(R.drawable.ic_baseline_cloud_download_24).error(R.drawable.ic_baseline_image_24).into(holder.newsIV);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,13 +69,15 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView titleTV, subtitleTV;
+        TextView titleTV, contentTV, authorTV, createDateTV;
         ImageView newsIV;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            titleTV = itemView.findViewById(R.id.idTVNewsHeading);
-            subtitleTV = itemView.findViewById(R.id.idTVSubTitle);
-            newsIV = itemView.findViewById(R.id.idIViews);
+            titleTV = itemView.findViewById(R.id.idTVNewFvMainHeading);
+            contentTV = itemView.findViewById(R.id.idTVContentNewFv);
+            authorTV = itemView.findViewById(R.id.idTVAuthorNewFv);
+            createDateTV = itemView.findViewById(R.id.idTVCreDateNewFv);
+            newsIV = itemView.findViewById(R.id.idIVNewFv);
         }
     }
 }

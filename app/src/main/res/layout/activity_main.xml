@@ -42,7 +42,8 @@
         android:id="@+id/toolbarmanhinhchinh"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_below="@id/idToolbar">
+        android:background="@color/teal_700"
+        >
 
     </androidx.appcompat.widget.Toolbar>
     <!--Advertisement Display-->

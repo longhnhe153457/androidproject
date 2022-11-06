@@ -29,18 +29,18 @@
             android:maxLines="2"
             android:layout_margin="3dp"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sub Heading"
-            android:layout_below="@id/idTVNewsHeading"
-            android:textColor="@color/black_shade_1"
-            android:maxLines="3"
-            android:layout_margin="3dp"
-            android:padding="3dp"
-            android:id="@+id/idTVSubTitle"
-            />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sub Heading"
+                android:layout_below="@id/idTVNewsHeading"
+                android:textColor="@color/black_shade_1"
+                android:maxLines="3"
+                android:layout_margin="3dp"
+                android:padding="3dp"
+                android:id="@+id/idTVSubTitle"
+                />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

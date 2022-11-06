@@ -1,7 +1,7 @@
 package com.example.projectnews.model;
 
 public class New {
-    private int ID;
+    private int Id;
     private String Category;
     private String Title;
     private String Content;
@@ -11,17 +11,8 @@ public class New {
 
     public New() {}
 
-    public New(int ID, String title, String content, String imageLink, String author, String createDate) {
-        this.ID = ID;
-        Title = title;
-        Content = content;
-        ImageLink = imageLink;
-        Author = author;
-        CreateDate = createDate;
-    }
-
     public New(int ID, String category, String title, String content, String imageLink, String author, String createDate) {
-        this.ID = ID;
+        Id = ID;
         Category = category;
         Title = title;
         Content = content;
@@ -31,11 +22,11 @@ public class New {
     }
 
     public int getID() {
-        return ID;
+        return Id;
     }
 
     public void setID(int ID) {
-        this.ID = ID;
+        this.Id = ID;
     }
 
     public String getCategory() {

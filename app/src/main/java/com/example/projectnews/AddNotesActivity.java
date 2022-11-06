@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.projectnews.dao.DBHelper;
+
 public class AddNotesActivity extends AppCompatActivity {
     EditText title, description;
     Button addNoteButton;

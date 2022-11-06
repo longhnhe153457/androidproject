@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewSearchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/idLLTopBarSearchView"
+        android:background="@color/teal_700">
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="onBackMain"
+            android:text="Đóng" />
+
+        <EditText
+            android:id="@+id/idEDNewSearch"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textColor="@color/white"
+            android:hint="Tìm kiếm"
+            android:inputType="textPersonName"
+            />
+        <ImageView
+            android:id="@+id/idIVSearchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:padding="9dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_search_24"
+            android:onClick="onSearchNew"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/idTVResultNewSearch"
+        android:textColor="@color/grey"
+        android:textSize="16dp"
+
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/idLLTopBarSearchView"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/idTVResultNewSearch"
+        android:id="@+id/idRVNewsSearchResult"
+        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/layout_new_item"
+        />
+</RelativeLayout>

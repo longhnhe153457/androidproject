@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectnews.adapter.Adapter;
+import com.example.projectnews.dao.DBHelper;
 import com.example.projectnews.model.ModelNote;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         LoadMainView();
         ActionBar();
 
-     //   ActionViewFlipper();
+       ActionViewFlipper();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
 
                         Intent intent = new Intent(MainActivity.this, com.example.projectnews.TaiKhoan.class);
                         startActivity(intent);
+
+                }
+                else if(position == 5){
+
+                  //  Intent intent = new Intent(MainActivity.this, com.example.projectnews.TaiKhoan.class);
+                    startActivity(intent);
 
                 }
                 else{
@@ -186,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
         chuyenmucArrayList.add(new chuyenmuc("Ghi chú",R.drawable.ic_baseline_event_note_24));
         chuyenmucArrayList.add(new chuyenmuc("Quizz",R.drawable.ic_baseline_quiz_24));
         chuyenmucArrayList.add(new chuyenmuc("Account",R.drawable.ic_baseline_account_circle_24));
+        chuyenmucArrayList.add(new chuyenmuc("Yêu thích",R.drawable.ic_baseline_favorite_24));
         chuyenmucArrayList.add(new chuyenmuc("Đăng xuất",R.drawable.ic_baseline_login_24));
         adapterchuyenmuc =new adapterchuyenmuc(this, R.layout.chuyenmuc,chuyenmucArrayList);
         listView.setAdapter(adapterchuyenmuc);

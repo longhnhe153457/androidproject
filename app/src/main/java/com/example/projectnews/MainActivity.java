@@ -107,8 +107,7 @@ public class MainActivity extends AppCompatActivity implements NewCategoryAdapte
 
                 }
                 else if(position == 5){
-
-                  //  Intent intent = new Intent(MainActivity.this, com.example.projectnews.TaiKhoan.class);
+                    Intent intent = new Intent(MainActivity.this, NewFavoriteActivity.class);
                     startActivity(intent);
 
                 }
